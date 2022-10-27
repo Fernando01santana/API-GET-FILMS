@@ -44,9 +44,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-## Documentation routes
+# documentaçao da API: http://localhost:3000/api
 
-/ GET - PORT 3000 - /api
 ## Test
 
 ```bash
