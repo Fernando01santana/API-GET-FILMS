@@ -10,10 +10,10 @@ export const MovieSchema = new mongoose.Schema({
     original_title: { 
         type: String 
     },
-    producer: { 
+    rt_score: { 
         type: String 
     },
-    time_duration: {
+    release_date: {
        type:String
     },   
 }, {

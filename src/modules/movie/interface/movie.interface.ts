@@ -4,8 +4,8 @@ export interface DataMovie{
     title:string
     description:string
     original_title:string
-    producer:string
-    time_duration:string
+    rt_score:string
+    release_date:string
 }
 
 export interface Movie extends Document{
@@ -23,8 +23,8 @@ export class IMovie{
     original_title:string
 
     @ApiProperty()
-    producer:string
+    rt_score:string
 
     @ApiProperty()
-    time_duration:string
+    release_date:string
 }

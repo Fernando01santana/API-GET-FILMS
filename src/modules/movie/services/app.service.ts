@@ -19,8 +19,8 @@ export class MovieService {
         title:element.title,
         description:element.description,
         original_title:element.original_title,
-        producer:element.producer,
-        time_duration:element.running_time
+        rt_score:element.rt_score,
+        release_date:element.release_date
       }
       movies.push(movie)
     });
