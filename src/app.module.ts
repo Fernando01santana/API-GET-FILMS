@@ -1,12 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './modules/movie/controllers/app.controller';
-import {  MovieService } from './modules/movie/services/app.service';
-import { config } from 'dotenv';
-import { MovieSchema } from './modules/movie/interface/movie.schema';
 import { MovieModule } from './modules/movie/movie.module';
-
+import {config} from 'dotenv';
 config()
+
+
 @Module({
   imports: [
     MongooseModule.forRoot(
