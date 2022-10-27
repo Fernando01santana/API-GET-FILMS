@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Api } from 'src/shared/api/Api';
@@ -13,6 +13,7 @@ export class MovieService {
   async create() {
     const apiMovies = await this.apiService.getUser()
     const movies:DataMovie[] = []
+
     apiMovies.forEach(element => {
       let movie = {
         title:element.title,
@@ -23,7 +24,12 @@ export class MovieService {
       }
       movies.push(movie)
     });
-    const movieSaves = await this.movieDatabase.create(movies)
-    return movieSaves
+    try {
+      const movieSaves = await this.movieDatabase.create(movies)
+      return movieSaves
+    } catch (error) {
+      throw new BadRequestException('Erro ao salvar filmes na base de dados' + error)
+    }
+
   }
 }
