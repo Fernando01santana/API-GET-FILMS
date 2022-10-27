@@ -10,8 +10,9 @@ config()
 @Module({
   imports: [
     MongooseModule.forRoot(
-      `mongodb+srv://fernando:Santana2002@cluster0.bysac1u.mongodb.net/?retryWrites=true&w=majority`,
-    ),MovieModule
+      `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.bysac1u.mongodb.net/?retryWrites=true&w=majority`,
+    ),
+    MovieModule
   ],
 })
 export class AppModule {}
