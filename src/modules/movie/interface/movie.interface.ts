@@ -1,17 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger"
 
-export interface DataMovie{
+export interface Movie{
     title:string
     description:string
     original_title:string
     rt_score:string
     release_date:string
 }
-
-export interface Movie extends Document{
-    movie:DataMovie[]
-}
-
 export class IMovie{
     @ApiProperty()
     title:string

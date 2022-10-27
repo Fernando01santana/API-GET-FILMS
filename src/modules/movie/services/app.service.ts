@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Api } from 'src/shared/api/Api';
-import { DataMovie, Movie } from '../interface/movie.interface';
+import { Movie } from '../interface/movie.interface';
 
 @Injectable()
 export class MovieService {
@@ -10,26 +10,29 @@ export class MovieService {
     @InjectModel('Movie') 
     private movieDatabase:Model<Movie>,
     private apiService:Api){}
-  async create() {
+  async create():Promise<void> {
     const apiMovies = await this.apiService.getUser()
-    const movies:DataMovie[] = []
-
-    apiMovies.forEach(element => {
-      let movie = {
-        title:element.title,
-        description:element.description,
-        original_title:element.original_title,
-        rt_score:element.rt_score,
-        release_date:element.release_date
-      }
-      movies.push(movie)
-    });
     try {
-      const movieSaves = await this.movieDatabase.create(movies)
-      return movieSaves
+      for await (const iterator of apiMovies) {
+
+        let movie = {
+          title:iterator.title,
+          description:iterator.description,
+          original_title:iterator.original_title,
+          rt_score:iterator.rt_score,
+          release_date:iterator.release_date
+        }
+      
+        await this.movieDatabase.create(movie)
+      }
+      return;
     } catch (error) {
       throw new BadRequestException('Erro ao salvar filmes na base de dados' + error)
     }
 
+  }
+
+  async findFilms(limit,page):Promise<any>{    
+    return await this.movieDatabase.find().sort({release_date:1}).skip(page * limit).limit(limit)
   }
 }
